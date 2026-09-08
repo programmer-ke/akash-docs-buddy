@@ -144,7 +144,7 @@ def main() -> None:
             except AttributeError:
                 doc_extensions = DEFAULT_FILE_EXTENSIONS
 
-            message_bus = bootstrap.get_message_bus(
+            message_bus = bootstrap.compose_message_bus(
                 repository_storage_path=data_dir / "repos" / repo_id,
                 doc_extensions=tuple(doc_extensions),
                 chunks_storage_path=data_dir / "chunks" / repo_id,
