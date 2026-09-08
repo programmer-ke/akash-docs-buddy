@@ -57,7 +57,8 @@ def compose_message_bus(
         kwargs = {
             name: dependency_pool[type_]
             for name, type_ in type_hints.items()
-            if not name in ("return", "command")  # ignore return type and command arg
+            if name not in ("return", "command")  # ignore return type and command arg
+                if name not in ("return", "event")  # ignore return type and event arg
         }
         materialized_handler = functools.partial(handler, **kwargs)
         message_bus.register_command_handler(command, materialized_handler)
