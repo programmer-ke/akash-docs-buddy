@@ -1,7 +1,26 @@
 """Service handlers"""
 
-from typing import Protocol, Callable
+from typing import Protocol, Callable, TypeAlias
 from docs_buddy.services import commands, events, use_cases
+from docs_buddy.common import PathLike
+
+from typing import Protocol
+
+
+class RepoSyncedNotifier(Protocol):
+    def __call__(self, url: str) -> None: ...
+
+
+class DocumentArtifactsUpdatedNotifier(Protocol):
+    def __call__(self) -> None: ...
+
+
+class IndexUpdatedNotifier(Protocol):
+    def __call__(self) -> None: ...
+
+
+class DocumentArtifactsProcessor(Protocol):
+    def __call__(self, content: str, path: PathLike) -> ...: ...
 
 
 class MessageBus(Protocol):
@@ -26,7 +45,7 @@ def sync_repository(
 
 
 def notify_repository_synced(
-    event: events.RepositorySynced, notifier: Callable
+    event: events.RepositorySynced, notifier: RepoSyncedNotifier
 ) -> None:
     """Notify that repository has been synced"""
 
@@ -34,7 +53,7 @@ def notify_repository_synced(
 
 
 def notify_document_artifacts_update(
-    event: events.DocumentArtifactsUpdated, notifier: Callable
+    event: events.DocumentArtifactsUpdated, notifier: DocumentArtifactsUpdatedNotifier
 ) -> None:
     """Notify that document artifacts have been updated"""
 
@@ -42,7 +61,7 @@ def notify_document_artifacts_update(
 
 
 def notify_index_updated(
-    event: events.DocumentIndexUpdated, notifier: Callable
+    event: events.DocumentIndexUpdated, notifier: IndexUpdatedNotifier
 ) -> None:
     """Notify that index has been updated"""
 
@@ -51,7 +70,7 @@ def notify_index_updated(
 
 def update_document_artifacts(
     storage: use_cases.DocsArtifactStorage,
-    processor: Callable,
+    processor: DocumentArtifactsProcessor,
     message_bus: MessageBus,
     command: commands.UpdateDocumentArtifacts,
 ) -> None:

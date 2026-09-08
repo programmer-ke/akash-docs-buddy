@@ -34,7 +34,7 @@ solve it.
 - Fast feedback loops: verify outputs immediately
 - Human in control. AI assists but does not take over. Human must
   retain ownership and comprehension
-- Shared context: All notes, codes and results are visible to both
+- Shared context: All notes, code and results are visible to both
   human and AI
 - Learning Over Automation: Prioritize understanding over speed.
 - Reflect and refine continuously, adjusting the plan as understanding
