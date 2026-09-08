@@ -1,7 +1,8 @@
 # High-level Structure
 
 The overall design was inspired by common principles used in
-hexagonal/onion/clean architectures and DDD.
+hexagonal/onion/clean architectures, DDD and CQRS, with a message bus
+being used for command/event dispatch.
 
 A Mermaid representation of the dependency graph:
 
